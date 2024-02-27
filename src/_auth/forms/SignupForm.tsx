@@ -12,16 +12,16 @@ import Loader from '@/components/shared/Loader';
 import { useCreateAccount, useSignInAccount } from '@/lib/react-query/queriesAndMutation';
 import { useUserContext } from '@/context/AuthContext';
 
-const SignupForm = () => {
+const SignUpForm = () => {
   const { toast } = useToast();
 
   const navigate = useNavigate();
 
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
 
-  const { mutateAsync: createUserAccount, isLoading: isCreatingUser } = useCreateAccount();
+  const { mutateAsync: createUserAccount, isPending: isCreatingAccount } = useCreateAccount();
 
-  const { mutateAsync: signInAccount, isLoading: isSigningIn } = useSignInAccount();
+  const { mutateAsync: signInAccount, isPending: isSigningIn } = useSignInAccount();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
@@ -123,7 +123,7 @@ const SignupForm = () => {
             )}
           />
           <Button className="shad-button_primary" type="submit">
-            {isCreatingUser ? (
+            {isCreatingAccount ? (
               <div className="flex-center gap-2">
                 <Loader /> Loading...
               </div>
@@ -144,4 +144,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default SignUpForm;
