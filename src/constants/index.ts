@@ -11,7 +11,7 @@ export const sidebarLinks = [
   },
   {
     imgURL: '/public/assets/icons/people.svg',
-    route: '/people',
+    route: '/all-users',
     label: 'People',
   },
   {

@@ -12,6 +12,8 @@ const LeftSidebar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  const { mutate: signOut, isSuccess } = useSignOutAccount();
+
   return (
     <nav className="leftsidebar">
       <div className="flex flex-col gap-10">
@@ -59,6 +61,15 @@ const LeftSidebar = () => {
           })}
         </ul>
       </div>
+
+      <Button 
+        variant="ghost" 
+        className="shad-button_ghost" 
+        onClick={() => signOut()}
+      >
+        <img src="/assets/icons/logout.svg" alt="logout" />
+        <p className="small-semibold lg:base-medium">Logout</p>
+      </Button>
     </nav>
   );
 };
