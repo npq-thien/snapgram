@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
+import FileUploader from "../shared/FileUploader";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -13,7 +14,7 @@ const formSchema = z.object({
   }),
 });
 
-const PostForm = () => {
+const PostForm = ({ post }) => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -28,7 +29,8 @@ const PostForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col w-full max-w-5xl gap-5">
+      <form onSubmit={form.handleSubmit(onSubmit)} 
+      className="flex flex-col w-full max-w-5xl gap-5">
         <FormField
           control={form.control}
           name="caption"
@@ -44,15 +46,19 @@ const PostForm = () => {
         />
       </form>
 
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col w-full max-w-5xl gap-5">
+      <form onSubmit={form.handleSubmit(onSubmit)} 
+      className="flex flex-col w-full max-w-5xl gap-5">
         <FormField
           control={form.control}
           name="file"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">File Uploader</FormLabel>
+              <FormLabel className="shad-form_label">Add Photos</FormLabel>
               <FormControl>
-                <Textarea className="shad-textarea" placeholder="Write your caption" {...field} />
+                <FileUploader 
+                  fieldChange={field.onChange}
+                  mediaUrl={post?.imageUrl}
+                />
               </FormControl>
               <FormMessage className="shad-form_message" />
             </FormItem>
@@ -60,7 +66,8 @@ const PostForm = () => {
         />
       </form>
 
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col w-full gap-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} 
+      className="flex flex-col w-full gap-4">
         <FormField
           control={form.control}
           name="location"
