@@ -21,7 +21,7 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
-      'image/*': ['.jpeg', '.png', 'jpg', '.svg']
+      'image/*': ['.jpeg', '.png', '.jpg', '.svg']
     }
   })
   
@@ -52,7 +52,7 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
               alt='file-upload'
             />
             <p className='small-medium'>Drag photo here</p>
-            <p className='small-medium text-light-4'>SVG PNG JPG</p>
+            <p className='small-medium text-light-4'>SVG PNG JPEG JPG</p>
             <Button className='shad-button_dark_4'>Select from computer</Button>
           </div>
         )
