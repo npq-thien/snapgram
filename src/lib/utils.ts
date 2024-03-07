@@ -26,3 +26,7 @@ export function formatDate(dateString: string): string {
     return `${seconds} ${seconds === 1 ? 'second' : 'seconds'} ago`;
   }
 }
+
+export const checkIsLiked = (likeList: string[], userId: string) => {
+  return likeList.includes(userId);
+};

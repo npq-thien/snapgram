@@ -2,6 +2,7 @@ import { ID, Query } from 'appwrite';
 
 import { account, appwriteConfig, avatars, databases, storage } from './config';
 import { INewPost, INewUser } from '@/types';
+import { error } from 'console';
 
 export async function createUserAccount(user: INewUser) {
   try {
@@ -57,13 +58,15 @@ export async function signInAccount(user: { email: string; password: string }) {
   }
 }
 
-export async function getCurrentAccount() {
+export async function getCurrentUser() {
   try {
     const currentAccount = await account.get();
 
     if (!currentAccount) throw Error;
 
-    const currentUser = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.userCollectionId, [
+    const currentUser = await databases.listDocuments(
+      appwriteConfig.databaseId, 
+      appwriteConfig.userCollectionId, [
       Query.equal('accountId', currentAccount.$id),
     ]);
 
@@ -181,4 +184,59 @@ export async function getRecentPosts() {
   if (!posts) throw Error
 
   return posts;
+}
+
+export async function likePost( postId: string, likesArray: string[]) {
+  try {
+    const updatedPost = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      postId,
+      {
+        likes: likesArray,
+      }
+    )
+
+    if (!updatedPost) throw Error;
+
+    return updatedPost
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function savePost( postId: string, userId: string) {
+  try {
+    const updatedPost = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.savesCollectionId,
+      ID.unique(),
+      {
+        user: userId,
+        post: postId,
+      }
+    )
+
+    if (!updatedPost) throw Error;
+
+    return updatedPost
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+export async function deleteSavedPost( postId: string) {
+  try {
+    const statusCode = await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      postId
+    )
+
+    if (!statusCode) throw Error;
+    return {status: 'ok'}
+  } catch (error) {
+    console.log(error)
+  }
 }
