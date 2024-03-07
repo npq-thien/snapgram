@@ -11,16 +11,16 @@ const Home = () => {
     <div className="flex flex-1">
       <div className="home-container">
         <div className="home-posts">
-          <h2 className="h3-bold md:h2-bold">
+          <h2 className="h3-bold md:h2-bold text-left w-full">
             Home Feed
           </h2>
           {isPostLoading && !posts ? (
             <Loader />
           ) : (
-            <ul className="flex flex-1 gap-8">
+            <ul className="flex gap-8 flex-col w-full">
               {posts?.documents.map((post: Models.Document) => (
-                // <PostCard post={post} />
-                <li>{post.caption}</li>
+                <PostCard key={post.$id} post={post} />
+                // <li>{post.caption}</li>
               ))}
             </ul>
           )}
