@@ -23,9 +23,49 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
+      'image/*': ['.jpeg', '.png', '.jpg', '.svg']
+    }
+  })
+  
+  
       "image/*": [".jpeg", ".png", "jpg", ".svg"],
     },
   });
+
+  return (
+    <div {...getRootProps()}
+     className='flex flex-col flex-center bg-dark-3
+     rounded-2xl cursor-pointer'>
+      <input {...getInputProps()} 
+      className='cursor-pointer '/>
+      {
+        fileUrl ? (
+          <>
+            <div className='flex flex-1 w-full justify-center
+            p-5 lg:p-10'>
+              <img 
+                src={fileUrl}
+                className='file_uploader-img'
+                alt='image'
+              />
+            </div>
+            <p className='file_uploader-label'>Click or drag photo to replace</p>
+          </>
+        ) : (
+          <div className='file_uploader-box gap-2'>
+            <img
+              src='/assets/icons/file-upload.svg'
+              alt='file-upload'
+            />
+            <p className='small-medium'>Drag photo here</p>
+            <p className='small-medium text-light-4'>SVG PNG JPEG JPG</p>
+            <Button className='shad-button_dark_4'>Select from computer</Button>
+          </div>
+        )
+      }
+    </div>
+  )
+}
 
   return (
     <div
