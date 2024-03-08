@@ -19,7 +19,10 @@ const PostForm = ({ post }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      caption: post ? post?.caption : "",
+      file: post ? post?.file : "",
+      location: post ? post?.caption : "",
+      tag: post ? post?.tag.join(",") : "",
     },
   });
 
@@ -29,8 +32,7 @@ const PostForm = ({ post }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} 
-      className="flex flex-col w-full max-w-5xl gap-5">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col w-full max-w-5xl gap-5">
         <FormField
           control={form.control}
           name="caption"
@@ -46,8 +48,7 @@ const PostForm = ({ post }) => {
         />
       </form>
 
-      <form onSubmit={form.handleSubmit(onSubmit)} 
-      className="flex flex-col w-full max-w-5xl gap-5">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col w-full max-w-5xl gap-5">
         <FormField
           control={form.control}
           name="file"
@@ -55,10 +56,7 @@ const PostForm = ({ post }) => {
             <FormItem>
               <FormLabel className="shad-form_label">Add Photos</FormLabel>
               <FormControl>
-                <FileUploader 
-                  fieldChange={field.onChange}
-                  mediaUrl={post?.imageUrl}
-                />
+                <FileUploader fieldChange={field.onChange} mediaUrl={post?.imageUrl} />
               </FormControl>
               <FormMessage className="shad-form_message" />
             </FormItem>
@@ -66,8 +64,7 @@ const PostForm = ({ post }) => {
         />
       </form>
 
-      <form onSubmit={form.handleSubmit(onSubmit)} 
-      className="flex flex-col w-full gap-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col w-full gap-4">
         <FormField
           control={form.control}
           name="location"
