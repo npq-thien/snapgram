@@ -2,7 +2,6 @@ import { ID, Query } from "appwrite";
 
 import { account, appwriteConfig, avatars, databases, storage } from "./config";
 import { INewPost, INewUser, IUpdatePost } from "@/types";
-import { error } from "console";
 
 export async function createUserAccount(user: INewUser) {
   try {

@@ -14,7 +14,6 @@ import { PostValidation } from "@/lib/validation";
 import { useUserContext } from "@/context/AuthContext";
 import { useToast } from "../ui/use-toast";
 import { useCreatePost, useUpdatePost } from "@/lib/react-query/queriesAndMutation";
-import { updatePost } from "@/lib/appwrite/api";
 
 type PostFormProps = {
   post?: Models.Document;
@@ -49,7 +48,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
         imageUrl: post?.imageUrl,
       })
 
-      if (!updatePost) {
+      if (!updatedPost) {
         return toast({
           title: 'Please try again'
         })
