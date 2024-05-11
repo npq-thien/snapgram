@@ -2,7 +2,6 @@ import { INewPost, INewUser, IUpdatePost } from '@/types';
 import { useQuery, useMutation, useQueryClient, useInfiniteQuery } from '@tanstack/react-query';
 import { createPost, createUserAccount, deletePost, deleteSavedPost, getCurrentUser, getInfinitePosts, getPostById, getRecentPosts, likePost, savePost, searchPosts, signInAccount, signOutAccount, updatePost } from '../appwrite/api';
 import { QUERY_KEYS } from './queryKey';
-import { posix } from 'path';
 
 export const useCreateAccount = () => {
   return useMutation({
@@ -155,9 +154,11 @@ export const useGetPosts = () => {
     getNextPageParam: (lastPage) => {
       if (lastPage && lastPage.documents.length === 0) return null;
 
-      const lastId = lastPage.documents[lastPage?.documents.length - 1].$id;
+      const lastId = lastPage?.documents[lastPage?.documents.length - 1].$id;
 
+      return typeof lastId === "string" ? Number(lastId) : lastId;
       return lastId;
+    
     }
   })
 }
