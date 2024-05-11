@@ -1,5 +1,7 @@
 # React + TypeScript + Vite
 
+This project based on: https://www.youtube.com/watch?v=_W3R2VwRyF4&t=11399s&ab_channel=JavaScriptMastery
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
