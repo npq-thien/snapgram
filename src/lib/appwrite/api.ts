@@ -4,7 +4,7 @@ import { account, appwriteConfig, avatars, databases, storage } from "./config";
 import { INewPost, INewUser, IUpdatePost } from "@/types";
 
 export async function createUserAccount(user: INewUser) {
-  try {
+try {
     const newAccount = account.create(ID.unique(), user.email, user.password, user.name);
 
     if (!newAccount) throw Error;

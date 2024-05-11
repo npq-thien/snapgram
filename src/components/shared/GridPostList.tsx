@@ -16,7 +16,7 @@ const GridPostList = ({ posts, showUser = true, showStats = true } : GridPostLis
     <ul className='grid-container'>
       {posts.map((post) => (
         <li key={post.$id} className='relative min-80 h-80'>
-        <Link className='grid-post_link'>
+        <Link to={`/posts/${post.$id}`} className='grid-post_link'>
           <img src={post.imageUrl} alt="post" className='w-full h-full object-cover'/>
         </Link>
 
@@ -28,9 +28,7 @@ const GridPostList = ({ posts, showUser = true, showStats = true } : GridPostLis
             </div>
           )}
 
-          {showStats && (
-            <PostStats post={post} userId={user.id} />
-          )}
+          {showStats && <PostStats post={post} userId={user.id} />}
         </div>
         </li>
       ))}
