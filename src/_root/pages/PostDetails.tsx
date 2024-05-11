@@ -1,7 +1,7 @@
 import PostStats from "@/components/shared/PostStats";
 import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
-import { useDeletePost, useGetPostById } from "@/lib/react-query/queriesAndMutation"
+import { useGetPostById } from "@/lib/react-query/queriesAndMutation"
 import { formatDate } from "@/lib/utils";
 import { Loader } from "lucide-react";
 import { useParams, Link } from "react-router-dom"
@@ -12,7 +12,7 @@ const PostDetails = () => {
   const { user } = useUserContext()
 
   const handleDeletePost = () => {
-    useDeletePost(post.$id, post.imageId);
+    // useDeletePost(post.$id, post.imageId);
   }
 
   return (
@@ -40,7 +40,7 @@ const PostDetails = () => {
                       {post?.creator.name}
                     </p>
                     <p className="subtle-semibold text-light-3">
-                      {formatDate(post?.$createdAt)} - {post?.location}
+                      {formatDate(post?.$createdAt ? post?.$createdAt : "" )} - {post?.location}
                     </p>
                   </div>
                 </div>  
